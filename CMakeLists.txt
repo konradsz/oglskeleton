@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.6)
 project (oglskeleton)
 
 # GLEW
@@ -24,3 +24,5 @@ include_directories(lib/soil/inc/SOIL)
 file(GLOB_RECURSE src_files ${PROJECT_SOURCE_DIR}/src/*)
 add_executable(app ${src_files})
 target_link_libraries(app ${GLFW_LIBRARIES} libglew_static glfw soil)
+
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT app)
