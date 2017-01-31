@@ -3,6 +3,7 @@ project (oglskeleton)
 
 # GLEW
 set(glew-cmake_BUILD_SHARED OFF CACHE BOOL "" FORCE)
+set(glew-cmake_BUILD_MULTI_CONTEXT OFF CACHE BOOL "" FORCE)
 add_subdirectory(lib/glew)
 include_directories(lib/glew/include lib/glew/src)
 
@@ -24,5 +25,3 @@ include_directories(lib/soil/inc/SOIL)
 file(GLOB_RECURSE src_files ${PROJECT_SOURCE_DIR}/src/*)
 add_executable(app ${src_files})
 target_link_libraries(app ${GLFW_LIBRARIES} libglew_static glfw soil)
-
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT app)
