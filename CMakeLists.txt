@@ -1,29 +1,33 @@
-cmake_minimum_required (VERSION 2.8)
-cmake_policy(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8)
 
-project (oglskeleton)
+project(oglskeleton)
 
-# GLEW
-set(glew-cmake_BUILD_SHARED OFF CACHE BOOL "" FORCE)
-set(glew-cmake_BUILD_MULTI_CONTEXT OFF CACHE BOOL "" FORCE)
-add_subdirectory(lib/glew)
-include_directories(lib/glew/include lib/glew/src)
-
-# GLFW
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
-add_subdirectory(lib/glfw)
-include_directories(lib/glfw/include)
-
-# GLM
-include_directories(lib/glm)
-
-# SOIL
-add_subdirectory(lib/soil)
-include_directories(lib/soil/inc/SOIL)
+set (CMAKE_CXX_STANDARD 14)
 
 file(GLOB_RECURSE src_files ${PROJECT_SOURCE_DIR}/src/*)
 add_executable(app ${src_files})
-target_link_libraries(app ${GLFW_LIBRARIES} libglew_static glfw soil)
+
+find_package(OpenGL REQUIRED)
+if (OpenGL_FOUND)
+    include_directories( ${OPENGL_INCLUDE_DIRS} )
+    target_link_libraries(app ${OPENGL_LIBRARIES})
+endif()
+
+find_package(GLUT REQUIRED)
+if (GLUT_FOUND)
+    include_directories(${GLUT_INCLUDE_DIRS})
+    target_link_libraries(app ${GLUT_LIBRARY})
+endif()
+
+find_package(GLEW REQUIRED)
+if (GLEW_FOUND)
+    include_directories(${GLEW_INCLUDE_DIRS})
+    target_link_libraries(app ${GLEW_LIBRARIES})
+endif()
+
+find_package(glfw3 REQUIRED)
+if (glfw3_FOUND)
+    include_directories(${GLFW_INCLUDE_DIRS})
+    target_link_libraries(app ${GLFW_LIBRARIES})
+endif()
+
