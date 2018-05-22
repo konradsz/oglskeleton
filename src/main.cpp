@@ -12,7 +12,7 @@ const GLuint WINDOW_HEIGHT = 600;
 
 int main() {
     if (!glfwInit()) {
-        std::cout << "Failed to initialize GLFW" << std::endl;
+        std::cerr << "Failed to initialize GLFW" << std::endl;
         return -1;
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -24,7 +24,7 @@ int main() {
     GLFWwindow* window =
         glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "oglskeleton", nullptr, nullptr);
     if (!window) {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return -1;
     }
@@ -33,7 +33,7 @@ int main() {
 
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) {
-        std::cout << "Failed to initialize GLEW" << std::endl;
+        std::cerr << "Failed to initialize GLEW" << std::endl;
         return -1;
     }
 
